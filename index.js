@@ -30,18 +30,15 @@ async function cardgen(){
 
     if(argv.template){
         template = await JSDOM.fromFile(argv.template, { runScripts: "dangerously" })
-    } else {
-        
     }
 
     let source = []
     if(argv.source){
         let data = fs.readFileSync(argv.source)
         source = parse(data, {
-            delimiter: ","
+            delimiter: ",",
+            columns: true
         });
-    } else {
-
     }
 
     let final=  new JSDOM("")
@@ -54,21 +51,21 @@ async function cardgen(){
         link.media = 'all';
         head.appendChild(link);
     }
-    let headers = source.splice(0,1)[0]
-
     //for each entry
     source.forEach( (entry) => {
         let newTemplate = new JSDOM(template.window.document.documentElement.outerHTML, { runScripts: "dangerously" })
-        headers.forEach((element,i) => {      
-            let occurrences = newTemplate.window.document.querySelectorAll(`[varname=${element}]`) 
+
+        if(newTemplate.window.BeforeLoad){
+            newTemplate.window.BeforeLoad(entry)
+        }
+
+        for(let element in entry) {
+            let occurrences = newTemplate.window.document.querySelectorAll(`[varname=${element}]`)
             occurrences.forEach((occurence) => {
-                let beforeLoad = occurence.getAttribute("beforeload")
-                if(beforeLoad){
-                   newTemplate.window[beforeLoad](entry[i])
-                }
-                occurence.innerHTML = entry[i]
+                occurence.innerHTML = entry[element]
             })
-        })
+        }
+
         final.window.document.documentElement.querySelector("body").appendChild(newTemplate.window.document.querySelector(".card"))
     })
 
