@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-const yargs = require('yargs/yargs')
-const { hideBin } = require('yargs/helpers')
-var argv = require('yargs/yargs')(process.argv.slice(2))
-    .commandDir('commands')
-    .usage('Usage: $0 [options]')
+import yargs from  'yargs/yargs'
+import { hideBin } from 'yargs/helpers'
+import {commands} from './commands/collection.js'
+
+yargs(hideBin(process.argv))
+    .command(commands)
     .help('h')
     .alias('h', 'help')
     .argv;

@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "install": "npm install -g .",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,9 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^5.0.1",
+    "cli-spinners": "^2.7.0",
     "csv": "^6.2.0",
-    "inquirer": "^9.0.2",
+    "inquirer": "^8.2.4",
     "jsdom": "^20.0.0",
+    "log-symbols": "^5.1.0",
+    "nanospinner": "^1.1.0",
+    "ora": "^6.1.2",
     "puppeteer": "^15.5.0",
     "yargs": "^17.5.1"
   },
