@@ -2,14 +2,12 @@
   "name": "cardgen",
   "version": "0.0.2",
   "description": "",
-  "main": "index.js",
-  "type": "module",
+  "author": "",
   "scripts": {
     "install": "npm install -g .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "main": "background.js",
   "dependencies": {
     "chalk": "^5.0.1",
     "cli-spinners": "^2.7.0",
@@ -22,7 +20,12 @@
     "puppeteer": "^15.5.0",
     "yargs": "^17.5.1"
   },
+  "devDependencies": {
+
+  },
   "bin": {
     "cardgen": "./index.js"
-  }
+  },
+  "license": "ISC",
+  "type": "module"
 }

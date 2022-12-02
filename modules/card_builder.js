@@ -15,6 +15,7 @@ async function BuildCards(name,cardData,template,style,generateImage ){
     link.media = 'all';
     head.appendChild(link);
     template = await JSDOM.fromFile(template, { runScripts: "dangerously" })
+    
     //for each entry
     cardData.forEach( (entry) => {
         let card = new JSDOM(template.window.document.documentElement.outerHTML, { runScripts: "dangerously" })
