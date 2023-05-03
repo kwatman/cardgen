@@ -1,7 +1,7 @@
 import jsdom from  "jsdom";
 const { JSDOM } = jsdom;
 import fs from "fs";
-import image from "../modules/image.js"
+import image from "./image.js"
 
 async function BuildCards(name,cardData,template,style,generateImage ){
 

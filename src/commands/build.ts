@@ -18,7 +18,7 @@ module.builder = {
 }
 
 module.handler = async function (argv) {
-    let project = JSON.parse(fs.readFileSync("cardgen.json"));
+    let project = JSON.parse(fs.readFileSync("./cardgen.json"));
 
     console.log(chalk.green("buidling project: " + project.name))
 
