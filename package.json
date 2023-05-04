@@ -6,7 +6,7 @@
   "scripts": {
     "install": "npm install -g .",
     "build": "babel --presets @babel/preset-typescript ./src --out-dir lib --extensions .ts ",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cardgen": "node ./lib/index.js"
   },
   "main": "background.js",
   "dependencies": {
