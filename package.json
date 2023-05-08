@@ -3,13 +3,15 @@
   "version": "0.0.2",
   "description": "",
   "author": "",
+  "type": "module",
   "scripts": {
-    "install": "npm install -g .",
-    "build": "babel --presets @babel/preset-typescript ./src --out-dir lib --extensions .ts ",
+    "cg:install": "npm uninstall -g cardgen && npm install -g .",
+    "build": "tsc && npm run cg:install",
     "cardgen": "node ./dist/index.js"
   },
-  "main": "background.js",
+  "main": "./dist/index.js",
   "dependencies": {
+    "@types/jsdom": "^21.1.1",
     "chalk": "^5.0.1",
     "cli-spinners": "^2.7.0",
     "csv": "^6.2.0",
@@ -22,15 +24,12 @@
     "yargs": "^17.5.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.21.5",
-    "@babel/core": "^7.21.8",
-    "@babel/preset-env": "^7.21.5",
-    "@babel/preset-typescript": "^7.21.5",
+    "@types/inquirer": "^9.0.3",
+    "@types/yargs": "^17.0.24",
     "typescript": "^5.0.4"
   },
   "bin": {
-    "cardgen": "./index.js"
+    "cardgen": "./dist/index.js"
   },
-  "license": "ISC",
-  "type": "module"
+  "license": "ISC"
 }
