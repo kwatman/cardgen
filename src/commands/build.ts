@@ -61,18 +61,29 @@ export default class Build extends Command {
       //get all files in the set directory
       let files = fs.readdirSync(setPath)
 
+      //conver aspect ratio and dpi to pixels
+      let [aspectHeigth, aspectWidth] = set.aspect_ratio.split(':')
+
+
+
+      const widthPixels = Math.round(parseInt(aspectWidth) * set.dpi);
+      const heightPixels = Math.round(parseInt(aspectHeigth) * set.dpi);
+
+      console.log(widthPixels, heightPixels);
       //render templates to pictures
       const browser = await puppeteer.launch({ defaultViewport: null });
       const page = await browser.newPage();
       await page.setViewport({
-        width: 240,
-        height: 336
+        width: widthPixels,
+        height: heightPixels
       })
 
       for (let file of files) {
         let fileData = fs.readFileSync(path.join(setPath, file))
         await page.setContent(fileData.toString())
-        await page.screenshot({ path: path.join(setPath, file.replace('.html', '.png')) });
+        for (let format of set.formats) {
+          await page.screenshot({ type: format, path: path.join(setPath, file.replace('.html', '.' + format)) });
+        }
       }
       await browser.close();
 

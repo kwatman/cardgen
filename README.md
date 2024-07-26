@@ -46,7 +46,15 @@ The `cardgen.config.json`file contains the configuration for your project. Here 
             "template_handler": "ejs",
             "template": "templates/program.ejs",
             "data_handler": "json",
-            "data": "data/programs"
+            "data": "data/programs",
+            "aspect_ratio": "16:10",
+            "dpi": 300,
+            "formats": [
+                "png",
+                "jpeg",
+                "webp"
+            ]
+
         }
     ]
 }
@@ -62,6 +70,11 @@ The `cardgen.config.json`file contains the configuration for your project. Here 
   - `template`: The path to the template file.
   - `data_handler`: The data handler to use (e.g., `json`).
   - `data`: The path to the data file.
+  - `aspect_ratio`: The aspect ratio for the generated images (e.g., `16:9`).
+  - `dpi`: The dots per inch for the generated images (e.g., `300`).
+  - `formats`: An array of formats to generate available types `['png', 'jpeg', 'webp']`.
+
+
 
 ### Building
 
