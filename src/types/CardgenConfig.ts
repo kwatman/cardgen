@@ -11,6 +11,7 @@ export type CardgenConfig = {
             aspect_ratio: string;
             formats: ('png' | 'jpeg' | 'webp')[];
             dpi: number;
+            style: string;
         }
     ],
 

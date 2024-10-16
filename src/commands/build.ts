@@ -27,17 +27,18 @@ export default class Build extends Command {
     let buildPath = path.join(process.cwd(), 'dist')
 
     if (fs.existsSync(buildPath)) {
-      fs.rmdirSync(buildPath, { recursive: true })
+      fs.rmSync(buildPath, { recursive: true })
     }
     fs.mkdirSync(buildPath)
+    fs.mkdirSync(path.join(buildPath, 'html'))
 
     for (let set of config.sets) {
 
       //create set directory
-      let setPath = path.join(buildPath, set.name)
+      let setPath = path.join(buildPath, 'html', set.name)
       fs.mkdirSync(setPath)
 
-      stdout(colorize('#00FFFF', `Building set: ${set.name}`))
+      stdout(colorize('#00f73a', `Building set: ${set.name}`))
 
       //data
       let dataHandlerFactory = new DataHandlerFactory()
@@ -49,15 +50,14 @@ export default class Build extends Command {
       let templateHandler = templateHandlerFactory.getHandler(set.template_handler)
 
       for (let entry of data) {
+        stdout(colorize('#00FFFF', `\tBuilding card: ${entry.name}`))
         let renderedData = await templateHandler.render(path.join(process.cwd(), set.template), entry)
-        console.log(renderedData);
 
         //create file
         let fileName = entry.name + '.html'
         let filePath = path.join(setPath, fileName)
         fs.writeFileSync(filePath, renderedData)
       }
-
       //get all files in the set directory
       let files = fs.readdirSync(setPath)
 
@@ -69,7 +69,7 @@ export default class Build extends Command {
       const widthPixels = Math.round(parseInt(aspectWidth) * set.dpi);
       const heightPixels = Math.round(parseInt(aspectHeigth) * set.dpi);
 
-      console.log(widthPixels, heightPixels);
+
       //render templates to pictures
       const browser = await puppeteer.launch({ defaultViewport: null });
       const page = await browser.newPage();
@@ -78,16 +78,24 @@ export default class Build extends Command {
         height: heightPixels
       })
 
+      stdout(colorize('#00f73a', `Rendering set: ${set.name}`))
       for (let file of files) {
         let fileData = fs.readFileSync(path.join(setPath, file))
+
+        stdout(colorize('#00f73a', `\tRendering card: ${file.replace('.html', '')}`))
         await page.setContent(fileData.toString())
+        await page.addStyleTag({ path: set.style });
+
         for (let format of set.formats) {
-          await page.screenshot({ type: format, path: path.join(setPath, file.replace('.html', '.' + format)) });
+          stdout(colorize('#00FFFF', `\t\tRendering format: ${format}`))
+          if (!fs.existsSync(path.join(buildPath, format))) {
+            fs.mkdirSync(path.join(buildPath, format))
+            fs.mkdirSync(path.join(buildPath, format, set.name))
+          }
+          await page.screenshot({ type: format, path: path.join(buildPath, format, set.name, file.replace('.html', '.' + format)) });
         }
       }
       await browser.close();
-
-      // render(path.join(process.cwd(), config.templates, file), null)
     }
   }
 }
