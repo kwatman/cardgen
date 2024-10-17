@@ -64,11 +64,8 @@ export default class Build extends Command {
       //conver aspect ratio and dpi to pixels
       let [aspectHeigth, aspectWidth] = set.aspect_ratio.split(':')
 
-
-
       const widthPixels = Math.round(parseInt(aspectWidth) * set.dpi);
       const heightPixels = Math.round(parseInt(aspectHeigth) * set.dpi);
-
 
       //render templates to pictures
       const browser = await puppeteer.launch({ defaultViewport: null });
