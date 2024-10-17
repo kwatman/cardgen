@@ -24,57 +24,7 @@ pnpm install -g cardgen
 ```
 
 ## Usage
-
-### Create a new cardgen project
-
-```bash
-cardgen init
-```
-This will create a `cardgen.config.json` file and 3 folders: `styles`, `data`, and `templates`
-
-### Config
-
-The `cardgen.config.json`file contains the configuration for your project. Here is an example:
-
-```json
-{
-    "name": "hackerz",
-    "output": "output",
-    "sets": [
-        {
-            "name": "programs",
-            "template_handler": "ejs",
-            "template": "templates/program.ejs",
-            "data_handler": "json",
-            "data": "data/programs",
-            "aspect_ratio": "16:10",
-            "dpi": 300,
-            "formats": [
-                "png",
-                "jpeg",
-                "webp"
-            ]
-
-        }
-    ]
-}
-```
-
-#### Options
-
-- `name`: The name of the project.
-- `output`: The directory where the generated files will be saved.
-- `sets`: An array of sets to be generated. Each set has the following options:
-  - `name`: The name of the set.
-  - `template_handler`: The template handler to use (e.g., `ejs`).
-  - `template`: The path to the template file.
-  - `data_handler`: The data handler to use (e.g., `json`).
-  - `data`: The path to the data file.
-  - `aspect_ratio`: The aspect ratio for the generated images (e.g., `16:9`).
-  - `dpi`: The dots per inch for the generated images (e.g., `300`).
-  - `formats`: An array of formats to generate available types `['png', 'jpeg', 'webp']`.
-
-
+> Docs comming in the future
 
 ### Building
 
